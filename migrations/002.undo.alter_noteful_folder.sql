@@ -1,0 +1,3 @@
+ALTER TABLE notes DROP COLUMN IF EXISTS style;
+
+DROP TYPE IF EXISTS noteful_category;
