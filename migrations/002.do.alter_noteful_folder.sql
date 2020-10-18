@@ -8,3 +8,7 @@ CREATE TYPE folder_category AS ENUM (
 ALTER TABLE notes
   ADD COLUMN
     folder folder_category;
+
+ALTER TABLE folders
+ADD COLUMN  
+    folder folder_category;
