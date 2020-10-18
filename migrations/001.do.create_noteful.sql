@@ -16,6 +16,6 @@ CREATE TABLE notes (
   folder INTEGER REFERENCES folder(id)
 );
 
---not sure if this is needed
+--alter folders table
 ALTER TABLE folders
   ADD COLUMN note INTEGER REFERENCES note(id);
