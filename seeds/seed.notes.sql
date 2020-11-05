@@ -1,5 +1,7 @@
-INSERT INTO notes (name, content, folder)
-VALUES
+INSERT INTO folders ("folder_name") 
+    VALUES ('Important'),('Spangley'),('Groceries');
 
-('NoteA', 'this is a note a', 'important'), ('NoteB', 'this is a note b ', 'spangley'),('NoteC', 'this is a note c', 'super'),
-('NoteD', 'this is a note d', 'important'),('NoteE', 'this is a note e', 'spangley'),('NoteF', 'this is a note f', 'super')
+INSERT INTO notes ("name", "content","folder_id") VALUES 
+    ('This is an important note','Note content',1),
+    ('This is an important note 2','Note content 2',1),
+    ('This is an important note 3','Note content 3',2);

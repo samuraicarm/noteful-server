@@ -15,14 +15,36 @@ notefulRouter
       .catch(next);
   })
   .post(jsonParser, (req, res, next) => {
-    const { name, content, folderId } = req.body;
-    const newNote = { name, content, folderId };
+    const { name, content, folder_id } = req.body;
+    const newNote = { name, content, folder_id };
     NotefulService.insertNote(req.app.get("db"), newNote)
       .then((notes) => {
         res
           .status(201)
           .location(path.posix.join(req.originalUrl, `/${notes.id}`))
           .json(notes);
+      })
+      .catch(next);
+  });
+
+notefulRouter
+  .route("/folders")
+  .get((req, res, next) => {
+    NotefulService.getAllFolders(req.app.get("db"))
+      .then((folders) => {
+        res.json(folders);
+      })
+      .catch(next);
+  })
+  .post(jsonParser, (req, res, next) => {
+    const { folder_name } = req.body;
+    const newFolder = { folder_name };
+    NotefulService.insertFolder(req.app.get("db"), newFolder)
+      .then((folder) => {
+        res
+          .status(201)
+          .location(path.posix.join(req.originalUrl, `/folder/${folder.id}`))
+          .json(folder);
       })
       .catch(next);
   });
@@ -55,7 +77,7 @@ notefulRouter
           id: notes.id,
           title: xss(notes.title), // sanitize title
           content: xss(notes.content), // sanitize url
-          folderId: xss(notes.folderId), // sanitize description
+          folder_id: notes.folder_id,
           date_published: notes.date_published,
         });
       })
@@ -69,13 +91,13 @@ notefulRouter
       .catch(next);
   })
   .patch(jsonParser, (req, res, next) => {
-    const { title, content, folderId } = req.body;
-    const noteToUpdate = { title, content, folderId };
+    const { title, content, folder_id } = req.body;
+    const noteToUpdate = { title, content, folder_id };
     const numberOfValues = Object.values(noteToUpdate).filter(Boolean).length;
     if (numberOfValues === 0) {
       return res.status(400).json({
         error: {
-          message: `Request body must contain either 'title', 'content', 'folderID'`,
+          message: `Request body must contain either 'title', 'content', 'folder_id'`,
         },
       });
     }
@@ -91,7 +113,7 @@ notefulRouter
   });
 
 notefulRouter
-  .route("/:folder_id")
+  .route("/folder/:folder_id")
   .all((req, res, next) => {
     NotefulService.getByFolderId(req.app.get("db"), req.params.folder_id)
       .then((folder) => {
@@ -121,9 +143,8 @@ notefulRouter
       })
       .catch(next);
   })
-
   .delete((req, res, next) => {
-    NotefulService.Folder(req.app.get("db"), req.params.folder_id)
+    NotefulService.deleteFolder(req.app.get("db"), req.params.folder_id)
       .then(() => {
         res.status(204).end();
       })
@@ -142,7 +163,7 @@ notefulRouter
     }
     NotefulService.updateFolder(
       req.app.get("db"),
-      req.params.note_id,
+      req.params.folder_id,
       folderToUpdate
     )
       .then((numRowsAffected) => {

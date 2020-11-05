@@ -1,4 +1,0 @@
-ALTER TABLE notes DROP COLUMN IF EXISTS folder;
-ALTER TABLE folders DROP COLUMN IF EXISTS folder;
-
-DROP TYPE IF EXISTS folder_category;

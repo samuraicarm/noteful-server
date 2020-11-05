@@ -1,0 +1,7 @@
+{"message":"Unauthorized request to path: /api/noteful","level":"error"}
+{"message":"Unauthorized request to path: /api/noteful/folder","level":"error"}
+{"message":"Undefined binding(s) detected when compiling FIRST. Undefined column(s): [id] query: select * from \"notes\" where \"id\" = ? limit ?","level":"error"}
+{"message":"Unauthorized request to path: /api/noteful/folder","level":"error"}
+{"message":"Undefined binding(s) detected when compiling FIRST. Undefined column(s): [id] query: select * from \"notes\" where \"id\" = ? limit ?","level":"error"}
+{"message":"Unauthorized request to path: /api/noteful/folders","level":"error"}
+{"message":"Unauthorized request to path: /api/noteful/","level":"error"}
