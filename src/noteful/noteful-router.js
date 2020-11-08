@@ -84,7 +84,7 @@ notefulRouter
       .catch(next);
   })
   .delete((req, res, next) => {
-    NotefulService.Note(req.app.get("db"), req.params.note_id)
+    NotefulService.deleteNote(req.app.get("db"), req.params.note_id)
       .then(() => {
         res.status(204).end();
       })
