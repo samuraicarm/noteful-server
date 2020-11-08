@@ -52,7 +52,7 @@ notefulRouter
 notefulRouter
   .route("/:note_id")
   .all((req, res, next) => {
-    NotefulService.getById(req.app.get("db"), req.params.notes_id)
+    NotefulService.getById(req.app.get("db"), req.params.note_id)
       .then((notes) => {
         if (!notes) {
           return res.status(404).json({
@@ -66,7 +66,7 @@ notefulRouter
   })
   .get((req, res, next) => {
     const knexInstance = req.app.get("db");
-    NotefulService.getById(knexInstance, req.params.notes_id)
+    NotefulService.getById(knexInstance, req.params.note_id)
       .then((notes) => {
         if (!notes) {
           return res.status(404).json({
